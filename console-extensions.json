@@ -1,0 +1,484 @@
+[
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "flag": "KUEUE_OPERATOR",
+      "model": { "group": "kueue.openshift.io", "kind": "Kueue", "version": "v1" }
+    }
+  },
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "flag": "KUEUE_CLUSTER_QUEUE",
+      "model": { "group": "kueue.x-k8s.io", "kind": "ClusterQueue", "version": "v1beta1" }
+    }
+  },
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "flag": "KUEUE_LOCAL_QUEUE",
+      "model": { "group": "kueue.x-k8s.io", "kind": "LocalQueue", "version": "v1beta1" }
+    }
+  },
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "flag": "KUEUE_WORKLOAD",
+      "model": { "group": "kueue.x-k8s.io", "kind": "Workload", "version": "v1beta1" }
+    }
+  },
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "flag": "KUEUE_RESOURCE_FLAVOR",
+      "model": { "group": "kueue.x-k8s.io", "kind": "ResourceFlavor", "version": "v1beta1" }
+    }
+  },
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "flag": "KUEUE_ADMISSION_CHECK",
+      "model": { "group": "kueue.x-k8s.io", "kind": "AdmissionCheck", "version": "v1beta1" }
+    }
+  },
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "flag": "KUEUE_WORKLOAD_PRIORITY_CLASS",
+      "model": { "group": "kueue.x-k8s.io", "kind": "WorkloadPriorityClass", "version": "v1beta1" }
+    }
+  },
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "flag": "KUEUE_COHORT",
+      "model": { "group": "kueue.x-k8s.io", "kind": "Cohort", "version": "v1beta1" }
+    }
+  },
+
+  {
+    "type": "console.navigation/section",
+    "properties": {
+      "id": "kueue",
+      "perspective": "admin",
+      "name": "%plugin__rhbok-console-plugin~Kueue%",
+      "insertAfter": "workloads"
+    },
+    "flags": { "required": ["KUEUE_CLUSTER_QUEUE"] }
+  },
+
+  {
+    "type": "console.navigation/href",
+    "properties": {
+      "id": "kueue-config",
+      "name": "%plugin__rhbok-console-plugin~Kueue Config%",
+      "href": "/kueue/config",
+      "perspective": "admin",
+      "section": "kueue"
+    },
+    "flags": { "required": ["KUEUE_OPERATOR"] }
+  },
+  {
+    "type": "console.navigation/separator",
+    "properties": {
+      "id": "kueue-separator-1",
+      "perspective": "admin",
+      "section": "kueue",
+      "insertAfter": "kueue-config"
+    },
+    "flags": { "required": ["KUEUE_CLUSTER_QUEUE"] }
+  },
+  {
+    "type": "console.navigation/resource-cluster",
+    "properties": {
+      "id": "kueue-clusterqueues",
+      "model": { "group": "kueue.x-k8s.io", "kind": "ClusterQueue", "version": "v1beta1" },
+      "name": "%plugin__rhbok-console-plugin~ClusterQueues%",
+      "perspective": "admin",
+      "section": "kueue",
+      "insertAfter": "kueue-separator-1"
+    },
+    "flags": { "required": ["KUEUE_CLUSTER_QUEUE"] }
+  },
+  {
+    "type": "console.navigation/resource-cluster",
+    "properties": {
+      "id": "kueue-resourceflavors",
+      "model": { "group": "kueue.x-k8s.io", "kind": "ResourceFlavor", "version": "v1beta1" },
+      "name": "%plugin__rhbok-console-plugin~ResourceFlavors%",
+      "perspective": "admin",
+      "section": "kueue",
+      "insertAfter": "kueue-clusterqueues"
+    },
+    "flags": { "required": ["KUEUE_RESOURCE_FLAVOR"] }
+  },
+  {
+    "type": "console.navigation/resource-cluster",
+    "properties": {
+      "id": "kueue-cohorts",
+      "model": { "group": "kueue.x-k8s.io", "kind": "Cohort", "version": "v1beta1" },
+      "name": "%plugin__rhbok-console-plugin~Cohorts%",
+      "perspective": "admin",
+      "section": "kueue",
+      "insertAfter": "kueue-resourceflavors"
+    },
+    "flags": { "required": ["KUEUE_COHORT"] }
+  },
+  {
+    "type": "console.navigation/separator",
+    "properties": {
+      "id": "kueue-separator-2",
+      "perspective": "admin",
+      "section": "kueue",
+      "insertAfter": "kueue-cohorts"
+    },
+    "flags": { "required": ["KUEUE_CLUSTER_QUEUE"] }
+  },
+  {
+    "type": "console.navigation/resource-ns",
+    "properties": {
+      "id": "kueue-localqueues",
+      "model": { "group": "kueue.x-k8s.io", "kind": "LocalQueue", "version": "v1beta1" },
+      "name": "%plugin__rhbok-console-plugin~LocalQueues%",
+      "perspective": "admin",
+      "section": "kueue",
+      "insertAfter": "kueue-separator-2"
+    },
+    "flags": { "required": ["KUEUE_LOCAL_QUEUE"] }
+  },
+  {
+    "type": "console.navigation/resource-ns",
+    "properties": {
+      "id": "kueue-workloads",
+      "model": { "group": "kueue.x-k8s.io", "kind": "Workload", "version": "v1beta1" },
+      "name": "%plugin__rhbok-console-plugin~Workloads%",
+      "perspective": "admin",
+      "section": "kueue",
+      "insertAfter": "kueue-localqueues"
+    },
+    "flags": { "required": ["KUEUE_WORKLOAD"] }
+  },
+  {
+    "type": "console.navigation/separator",
+    "properties": {
+      "id": "kueue-separator-3",
+      "perspective": "admin",
+      "section": "kueue",
+      "insertAfter": "kueue-workloads"
+    },
+    "flags": { "required": ["KUEUE_CLUSTER_QUEUE"] }
+  },
+  {
+    "type": "console.navigation/resource-cluster",
+    "properties": {
+      "id": "kueue-admissionchecks",
+      "model": { "group": "kueue.x-k8s.io", "kind": "AdmissionCheck", "version": "v1beta1" },
+      "name": "%plugin__rhbok-console-plugin~AdmissionChecks%",
+      "perspective": "admin",
+      "section": "kueue",
+      "insertAfter": "kueue-separator-3"
+    },
+    "flags": { "required": ["KUEUE_ADMISSION_CHECK"] }
+  },
+  {
+    "type": "console.navigation/resource-cluster",
+    "properties": {
+      "id": "kueue-workloadpriorityclasses",
+      "model": { "group": "kueue.x-k8s.io", "kind": "WorkloadPriorityClass", "version": "v1beta1" },
+      "name": "%plugin__rhbok-console-plugin~WorkloadPriorityClasses%",
+      "perspective": "admin",
+      "section": "kueue",
+      "insertAfter": "kueue-admissionchecks"
+    },
+    "flags": { "required": ["KUEUE_WORKLOAD_PRIORITY_CLASS"] }
+  },
+
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": true,
+      "path": "/kueue/config",
+      "component": { "$codeRef": "KueueConfigPage" }
+    },
+    "flags": { "required": ["KUEUE_OPERATOR"] }
+  },
+
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "ClusterQueue", "version": "v1beta1" },
+      "component": { "$codeRef": "ClusterQueueList" }
+    },
+    "flags": { "required": ["KUEUE_CLUSTER_QUEUE"] }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "LocalQueue", "version": "v1beta1" },
+      "component": { "$codeRef": "LocalQueueList" }
+    },
+    "flags": { "required": ["KUEUE_LOCAL_QUEUE"] }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "Workload", "version": "v1beta1" },
+      "component": { "$codeRef": "WorkloadList" }
+    },
+    "flags": { "required": ["KUEUE_WORKLOAD"] }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "ResourceFlavor", "version": "v1beta1" },
+      "component": { "$codeRef": "ResourceFlavorList" }
+    },
+    "flags": { "required": ["KUEUE_RESOURCE_FLAVOR"] }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "Cohort", "version": "v1beta1" },
+      "component": { "$codeRef": "CohortList" }
+    },
+    "flags": { "required": ["KUEUE_COHORT"] }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "AdmissionCheck", "version": "v1beta1" },
+      "component": { "$codeRef": "AdmissionCheckList" }
+    },
+    "flags": { "required": ["KUEUE_ADMISSION_CHECK"] }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "WorkloadPriorityClass", "version": "v1beta1" },
+      "component": { "$codeRef": "WorkloadPriorityClassList" }
+    },
+    "flags": { "required": ["KUEUE_WORKLOAD_PRIORITY_CLASS"] }
+  },
+
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "ClusterQueue", "version": "v1beta1" },
+      "page": {
+        "name": "%plugin__rhbok-console-plugin~Resource Groups%",
+        "href": "resource-groups"
+      },
+      "component": { "$codeRef": "ClusterQueueResourceGroupsTab" }
+    },
+    "flags": { "required": ["KUEUE_CLUSTER_QUEUE"] }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "ClusterQueue", "version": "v1beta1" },
+      "page": {
+        "name": "%plugin__rhbok-console-plugin~Pending Workloads%",
+        "href": "pending-workloads"
+      },
+      "component": { "$codeRef": "ClusterQueuePendingWorkloadsTab" }
+    },
+    "flags": { "required": ["KUEUE_CLUSTER_QUEUE"] }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "LocalQueue", "version": "v1beta1" },
+      "page": {
+        "name": "%plugin__rhbok-console-plugin~Workloads%",
+        "href": "workloads"
+      },
+      "component": { "$codeRef": "LocalQueueWorkloadsTab" }
+    },
+    "flags": { "required": ["KUEUE_LOCAL_QUEUE"] }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "Workload", "version": "v1beta1" },
+      "page": {
+        "name": "%plugin__rhbok-console-plugin~Pod Sets%",
+        "href": "pod-sets"
+      },
+      "component": { "$codeRef": "WorkloadPodSetsTab" }
+    },
+    "flags": { "required": ["KUEUE_WORKLOAD"] }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "Workload", "version": "v1beta1" },
+      "page": {
+        "name": "%plugin__rhbok-console-plugin~Admission Checks%",
+        "href": "admission-checks"
+      },
+      "component": { "$codeRef": "WorkloadAdmissionChecksTab" }
+    },
+    "flags": { "required": ["KUEUE_WORKLOAD"] }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "Workload", "version": "v1beta1" },
+      "page": {
+        "name": "%plugin__rhbok-console-plugin~Conditions%",
+        "href": "conditions"
+      },
+      "component": { "$codeRef": "WorkloadConditionsTab" }
+    },
+    "flags": { "required": ["KUEUE_WORKLOAD"] }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "Cohort", "version": "v1beta1" },
+      "page": {
+        "name": "%plugin__rhbok-console-plugin~Member ClusterQueues%",
+        "href": "member-clusterqueues"
+      },
+      "component": { "$codeRef": "CohortMemberQueuesTab" }
+    },
+    "flags": { "required": ["KUEUE_COHORT"] }
+  },
+
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "ClusterQueue", "version": "v1beta1" },
+      "abbr": "CQ",
+      "label": "ClusterQueue",
+      "labelPlural": "ClusterQueues"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "LocalQueue", "version": "v1beta1" },
+      "abbr": "LQ",
+      "label": "LocalQueue",
+      "labelPlural": "LocalQueues"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "Workload", "version": "v1beta1" },
+      "abbr": "WL",
+      "label": "Workload",
+      "labelPlural": "Workloads"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "ResourceFlavor", "version": "v1beta1" },
+      "abbr": "RF",
+      "label": "ResourceFlavor",
+      "labelPlural": "ResourceFlavors"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "AdmissionCheck", "version": "v1beta1" },
+      "abbr": "AC",
+      "label": "AdmissionCheck",
+      "labelPlural": "AdmissionChecks"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "WorkloadPriorityClass", "version": "v1beta1" },
+      "abbr": "WPC",
+      "label": "WorkloadPriorityClass",
+      "labelPlural": "WorkloadPriorityClasses"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "Cohort", "version": "v1beta1" },
+      "abbr": "CH",
+      "label": "Cohort",
+      "labelPlural": "Cohorts"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": { "group": "kueue.openshift.io", "kind": "Kueue", "version": "v1" },
+      "abbr": "KU",
+      "label": "Kueue",
+      "labelPlural": "Kueues"
+    }
+  },
+
+  {
+    "type": "console.yaml-template",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "ClusterQueue", "version": "v1beta1" },
+      "name": "default",
+      "template": { "$codeRef": "yamlTemplates.clusterQueueTemplate" }
+    },
+    "flags": { "required": ["KUEUE_CLUSTER_QUEUE"] }
+  },
+  {
+    "type": "console.yaml-template",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "LocalQueue", "version": "v1beta1" },
+      "name": "default",
+      "template": { "$codeRef": "yamlTemplates.localQueueTemplate" }
+    },
+    "flags": { "required": ["KUEUE_LOCAL_QUEUE"] }
+  },
+  {
+    "type": "console.yaml-template",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "Workload", "version": "v1beta1" },
+      "name": "default",
+      "template": { "$codeRef": "yamlTemplates.workloadTemplate" }
+    },
+    "flags": { "required": ["KUEUE_WORKLOAD"] }
+  },
+  {
+    "type": "console.yaml-template",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "ResourceFlavor", "version": "v1beta1" },
+      "name": "default",
+      "template": { "$codeRef": "yamlTemplates.resourceFlavorTemplate" }
+    },
+    "flags": { "required": ["KUEUE_RESOURCE_FLAVOR"] }
+  },
+  {
+    "type": "console.yaml-template",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "Cohort", "version": "v1beta1" },
+      "name": "default",
+      "template": { "$codeRef": "yamlTemplates.cohortTemplate" }
+    },
+    "flags": { "required": ["KUEUE_COHORT"] }
+  },
+  {
+    "type": "console.yaml-template",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "AdmissionCheck", "version": "v1beta1" },
+      "name": "default",
+      "template": { "$codeRef": "yamlTemplates.admissionCheckTemplate" }
+    },
+    "flags": { "required": ["KUEUE_ADMISSION_CHECK"] }
+  },
+  {
+    "type": "console.yaml-template",
+    "properties": {
+      "model": { "group": "kueue.x-k8s.io", "kind": "WorkloadPriorityClass", "version": "v1beta1" },
+      "name": "default",
+      "template": { "$codeRef": "yamlTemplates.workloadPriorityClassTemplate" }
+    },
+    "flags": { "required": ["KUEUE_WORKLOAD_PRIORITY_CLASS"] }
+  }
+]
